@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:sys="clr-namespace:System;assembly=netstandard"
+             xmlns:charts="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts"
+             x:Class="InAndEx.Views.perYear"
+             Title="รายปี">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="+"
+                     Clicked="GotoIncome">
+        </ToolbarItem>
+        <ToolbarItem Text="-"
+                     Clicked="GotoExpenses">
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <Grid RowDefinitions="80,250,30,40,30,30,*" ColumnDefinitions="*,*,*,*">
+        <Frame Grid.Row="0" Grid.ColumnSpan="4"
+           BorderColor="Black"
+           Padding="5" Margin="70,0,70,0"
+           HeightRequest="70" VerticalOptions="StartAndExpand">
+            <DatePicker x:Name="datePicker"
+                    FontSize="30"
+                    Date="{x:Static sys:DateTime.Now}"
+                    Format="yyyy"
+                    HorizontalOptions="CenterAndExpand"
+                    DateSelected="OnDateSelected"/>
+        </Frame>
+
+        <Image Source="previous.png" Aspect="AspectFit"
+           HeightRequest="50" WidthRequest="50" Margin="0,-10,30,0"
+           Grid.Row="0" Grid.Column="0">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnPreviousClicked" />
+            </Image.GestureRecognizers>
+        </Image>
+        <Image Source="next.png" Aspect="AspectFit"
+           HeightRequest="50" WidthRequest="50" Margin="30,-10,0,0"
+           Grid.Row="0" Grid.Column="3">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnNextClicked" />
+            </Image.GestureRecognizers>
+        </Image>
+
+        <charts:SfCircularChart Title="" Grid.Row="1" Grid.ColumnSpan="4"
+                            HeightRequest="300">
+            <charts:SfCircularChart.Legend>
+                <charts:ChartLegend/>
+            </charts:SfCircularChart.Legend>
+            <charts:PieSeries ItemsSource="{Binding Data}"
+                          XBindingPath="XValue"
+                          YBindingPath="YValue">
+            </charts:PieSeries>
+        </charts:SfCircularChart>
+
+        <Label Text="คงเหลือ" FontSize="Large" FontAttributes="Bold"
+           HorizontalTextAlignment="Center"
+           Grid.ColumnSpan="4" Grid.Row="2"/>
+        <Label x:Name="Totalmoney" FontSize="Large" FontAttributes="Bold"
+           HorizontalTextAlignment="Center" Grid.ColumnSpan="4" Grid.Row="3"/>
+
+        <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
+           Text="รายได้" FontSize="Large" FontAttributes="Bold"
+           HorizontalTextAlignment="Center" TextColor="Green"/>
+        <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
+           x:Name="Totalincome" FontSize="Large" FontAttributes="Bold"
+           HorizontalTextAlignment="Center" TextColor="Green"/>
+
+        <Label Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2"
+           Text="รายจ่าย" FontSize="Large" FontAttributes="Bold"
+           HorizontalTextAlignment="Center" TextColor="Red"/>
+        <Label Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2"
+           x:Name="Totalexpenses" FontSize="Large" FontAttributes="Bold"
+           HorizontalTextAlignment="Center" TextColor="Red"/>
+
+        <ListView x:Name="listView" Margin="10,20,10,0"
+              Grid.Row="6" Grid.ColumnSpan="4"
+              ItemSelected="listView_ItemSelected">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding Name}"
+                          Detail="{Binding Money}"
+                          DetailColor="{Binding Type}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</ContentPage>

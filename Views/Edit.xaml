@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InAndEx.Views.Edit"
+             Title="แก้ไข"
+             BackgroundColor="#d8d8d8">
+    <VerticalStackLayout>
+        <Label Text="แก้ไข"
+               TextColor="#ffb800"
+               FontAttributes="Bold"
+               FontSize="100"
+               HorizontalTextAlignment="Center"
+               Margin="20,50,20,0"/>
+        <Frame CornerRadius="90"
+               BorderColor="#d8d8d8"
+               Padding="5" Margin="20,50,20,30">
+            <Editor Placeholder="ชื่อรายการ"
+                    Text="{Binding Name}"
+                    PlaceholderColor="#696969"
+                    WidthRequest="300"/>
+        </Frame>
+        <Frame CornerRadius="90"
+               BorderColor="#d8d8d8"
+               Padding="5" Margin="20,0,20,30">
+            <DatePicker x:Name="datePicker"
+                        Date="{Binding Date}"
+                        Format="dd/MM/yyyy"
+                        HorizontalOptions="FillAndExpand" />
+        </Frame>
+        <Frame CornerRadius="90"
+               BorderColor="#d8d8d8"
+               Padding="5" Margin="20,0,20,30">
+            <Entry Placeholder="จำนวนเงิน"
+                   Text="{Binding Money}"
+                   PlaceholderColor="#696969"
+                   WidthRequest="300"
+                   Keyboard="Numeric"/>
+        </Frame>
+        <Button Text="บันทึก"
+                Clicked="SaveButtonClicked"
+                FontSize="Large"
+                WidthRequest="200"
+                CornerRadius="90"
+                BackgroundColor="Green"
+                FontAttributes="Bold"
+                TextColor="Black"
+                Margin="20,20,20,0"/>
+        <Button Text="ลบ"
+                Clicked="DelButtonClicked"
+                FontSize="Large"
+                WidthRequest="200"
+                CornerRadius="90"
+                BackgroundColor="Red"
+                FontAttributes="Bold"
+                TextColor="Black"
+                Margin="20,20,20,0"/>
+    </VerticalStackLayout>
+</ContentPage>
